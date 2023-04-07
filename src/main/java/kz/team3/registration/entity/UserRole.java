@@ -4,6 +4,8 @@ public enum UserRole {
     ROLE_USER("User"),
     ROLE_ADMIN("Administrator"),
     ROLE_SUPERVISOR("Supervisor"),
+    ROLE_ACCOUNTANT("Accountant"),
+    ;
     
 
 

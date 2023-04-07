@@ -1,6 +1,5 @@
 package kz.team3.registration.entity;
 
-import kz.team3.registration.repository.RoleRepository;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 @Entity(name = "users")
 @Table
@@ -28,30 +27,39 @@ public class User implements UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
-    private Integer id;
-    private String studentId;
-    private String firstname;
-    private String lastname;
-    private String email;
+    private Long id;
+
+    private String username;
+
     private String password;
-    private String program;
-    private Integer course;
-    private String phone;
-    private Integer roleId;
-    private Integer bedId;
-    private String userPicture;
 
     @Enumerated(EnumType.STRING)
-    private Role.RoleType role;
-
-
-    @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
     }
+
+    private String studentId;
+
+    private String firstname;
+
+    private String lastname;
+
+    private String email;
+
+    private String program;
+
+    private Integer course;
+
+    private String phone;
+
+    private Integer roleId;
+
+    private Integer bedId;
+
+    private String userPicture;
 
     @Override
     public String getPassword() {
