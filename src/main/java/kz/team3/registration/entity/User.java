@@ -29,8 +29,6 @@ public class User implements UserDetails {
     )
     private Long id;
 
-    private String username;
-
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -55,11 +53,13 @@ public class User implements UserDetails {
 
     private String phone;
 
-    private Integer roleId;
-
-    private Integer bedId;
+    private Long bedId;
 
     private String userPicture;
+
+    private Double balance;
+
+    private UserGender userGender;
 
     @Override
     public String getPassword() {

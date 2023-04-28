@@ -1,35 +1,66 @@
 package kz.team3.registration.controller;
 
+import kz.team3.registration.dto.UserRequestDto;
 import kz.team3.registration.entity.User;
 import kz.team3.registration.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/users")
+@RequestMapping
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-/*
-    @GetMapping("/list")
-    public List<User> getStudents() throws IllegalAccessException {
-        return userService.getUsers();
-    }*/
-    @GetMapping()
-    public List<User>  getStudents() throws IllegalAccessException{
+
+    @GetMapping("api/v1/user/list")
+    public List<User> getUsers() throws IllegalAccessException {
         return userService.getUsers();
     }
-/*
-    @GetMapping("/{email}")
-    public User getStudent(@PathVariable("email") String email) {
-        return userService.getStudentByEmail(email);
-    }*/
 
-    @PostMapping
-    public void createUser(@RequestBody User user) {
-        userService.createUser(user);
+    @PostMapping("api/v1/user/create")
+    public void createUser(@RequestBody @Valid UserRequestDto userRequestDto) {
+        userService.createUser(userRequestDto);
+    }
+
+    @PostMapping("api/v1/user/addUser")
+    public void addUser(@RequestBody @Valid UserRequestDto userRequestDto) {
+
+        userService.addUser(userRequestDto);
+    }
+
+    @PutMapping("api/v1/users/{userId}/beds")
+    public ResponseEntity<User> giveBedToUser(@PathVariable Long userId, @RequestParam Long bedId) {
+        User updatedUser = userService.registerUserToBed(userId, bedId);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PostMapping("api/v1/{id}/balance")
+    public void updateBalance(@PathVariable Long id, @RequestParam Double amount) {
+        userService.updateBalance(id, amount);
+    }
+
+    @GetMapping("api/v1/get/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+    @DeleteMapping("api/v1/delete/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
+    @PutMapping("api/v1/update/{id}/password")
+    public User updateUserPassword(@PathVariable Long id, @RequestBody String newPassword) {
+        return userService.updateUserPassword(id, newPassword);
+    }
+
+    @PutMapping("api/v1/update/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userService.updateUser(id, updatedUser);
     }
 }

@@ -1,11 +1,10 @@
 package kz.team3.registration.controller;
 
 import kz.team3.registration.entity.Bed;
+import kz.team3.registration.entity.User;
 import kz.team3.registration.service.BedService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +23,31 @@ public class BedController {
     public List<Bed> getBeds() {
         return bedService.getBeds();
     }
+
+    @GetMapping
+    public Bed getAvailableBed() {
+        return bedService.getAvailableBed();
+    }
+
+    @PutMapping("update/{bedId}")
+    public Bed updateBedStatus(@PathVariable Long bedId, @RequestBody String status){
+        return bedService.updateBedStatus(bedId, status);
+    }
+
+    @GetMapping("/cost")
+    public int getBedCost() {
+        return bedService.getBedCost();
+    }
+
+    @GetMapping("/{bedId}")
+    public Bed getBedById(@PathVariable Long bedId) {
+        return bedService.getBedById(bedId);
+    }
+
+    @PostMapping("/set/cost")
+    public void setBedCost(@RequestBody int cost) {
+        bedService.setBedCost(cost);
+    }
+
 
 }
