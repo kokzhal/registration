@@ -20,5 +20,5 @@ public class Payment {
     private Integer id;
     private Date paymentDate;
     private String paymentType;
-    private Integer paymentAmount;
+    private Double paymentAmount;
 }

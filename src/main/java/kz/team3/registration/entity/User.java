@@ -61,6 +61,17 @@ public class User implements UserDetails {
 
     private UserGender userGender;
 
+    @ManyToOne
+    private Bed assignedBed;
+
+    public Bed getAssignedBed() {
+        return assignedBed;
+    }
+
+    public void setAssignedBed(Bed assignedBed) {
+        this.assignedBed = assignedBed;
+    }
+
     @Override
     public String getPassword() {
         return password;
