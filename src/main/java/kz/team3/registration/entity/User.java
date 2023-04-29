@@ -41,6 +41,8 @@ public class User implements UserDetails {
 
     private String studentId;
 
+    private String username;
+
     private String firstname;
 
     private String lastname;

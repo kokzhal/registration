@@ -3,6 +3,7 @@ package kz.team3.registration.controller;
 import kz.team3.registration.entity.Bed;
 import kz.team3.registration.entity.User;
 import kz.team3.registration.service.BedService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,21 +11,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/beds")
+@RequiredArgsConstructor
 public class BedController {
 
     private final BedService bedService;
-
-    @Autowired
-    public BedController(BedService bedService) {
-        this.bedService = bedService;
-    }
 
     @GetMapping
     public List<Bed> getBeds() {
         return bedService.getBeds();
     }
 
-    @GetMapping
+    @GetMapping("available")
     public Bed getAvailableBed() {
         return bedService.getAvailableBed();
     }
