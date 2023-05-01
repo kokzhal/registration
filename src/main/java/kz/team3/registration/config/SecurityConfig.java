@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.GET, "api/v1/user/list").hasAnyRole("ADMIN", "ACCOUNTANT", "SUPERVISOR")
                 .antMatchers(HttpMethod.POST, "api/v1/user/create").anonymous()
-                .antMatchers(HttpMethod.POST, "api/v1/users/{userId}/beds").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT", "STUDENT")
+                .antMatchers(HttpMethod.PUT, "api/v1/users/{userId}/beds").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT", "STUDENT")
                 .antMatchers(HttpMethod.POST, "api/v1/update/{id}").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT", "STUDENT")
                 .antMatchers(HttpMethod.POST, "pi/v1/update/{id}/password").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT", "STUDENT")
                 .antMatchers(HttpMethod.POST, "api/v1/user/addUser").hasAnyRole("SUPERVISOR")

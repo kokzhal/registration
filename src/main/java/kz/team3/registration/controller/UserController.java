@@ -1,6 +1,7 @@
 package kz.team3.registration.controller;
 
 import kz.team3.registration.dto.UserRequestDto;
+import kz.team3.registration.entity.Bed;
 import kz.team3.registration.entity.User;
 import kz.team3.registration.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class UserController {
     }
 
     @PutMapping("api/v1/users/{userId}/beds")
-    public ResponseEntity<User> giveBedToUser(@PathVariable Long userId, @RequestParam String bedId) {
-        User updatedUser = userService.registerUserToBed(userId, bedId);
+    public ResponseEntity<User> giveBedToUser(@PathVariable Long userId, @RequestBody Bed bed) {
+        User updatedUser = userService.registerUserToBed(userId, bed.getId());
         return ResponseEntity.ok(updatedUser);
     }
 

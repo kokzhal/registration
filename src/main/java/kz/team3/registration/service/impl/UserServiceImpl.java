@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setBedId(bedId);
         userRepository.save(user);
 
-        bed.setStatus("occupied");
+        bed.setStatus("unavailable");
         bedRepository.save(bed);
 
         log.info("Successfully saved user, userId: {}, bedId {}", userId, bedId);
