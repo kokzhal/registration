@@ -54,6 +54,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "api/v1/update/{id}").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT", "STUDENT")
                 .antMatchers(HttpMethod.POST, "pi/v1/update/{id}/password").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT", "STUDENT")
                 .antMatchers(HttpMethod.POST, "api/v1/user/addUser").hasAnyRole("SUPERVISOR")
+                .antMatchers(HttpMethod.POST, "api/v1/beds/create").hasAnyRole("ADMIN", "SUPERVISOR")
+                .antMatchers(HttpMethod.POST, "api/v1/beds/beds").hasAnyRole("ADMIN", "SUPERVISOR", "ACCOUNTANT", "STUDENT")
                 .antMatchers(HttpMethod.POST, "api/v1/get/{id}").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT")
                 .antMatchers(HttpMethod.POST, "api/v1/delete/{id}").hasAnyRole("SUPERVISOR", "ADMIN", "ACCOUNTANT")
                 .antMatchers(HttpMethod.POST, "api/v1/{id}/balance").hasAnyRole("SUPERVISOR", "ACCOUNTANT")

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BedRepository extends JpaRepository<Bed, Long> {
+public interface BedRepository extends JpaRepository<Bed, String> {
     @Query(value = "SELECT * FROM beds WHERE status = 'available' LIMIT 1", nativeQuery = true)
     Bed findAvailableBed();
 }

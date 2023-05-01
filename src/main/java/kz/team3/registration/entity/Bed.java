@@ -15,20 +15,13 @@ import javax.persistence.*;
 public class Bed {
 
     @Id
-    @SequenceGenerator(
-            name = "bed_sequence",
-            sequenceName = "bed_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "bed_sequence"
-    )
     private String id;
     private int bedNumber;
     private String roomId;
-    private int price;
+    private double price;
     private String currency;
     private String status;
+    private int floor;
+    private String block;
 
 }

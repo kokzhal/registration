@@ -15,7 +15,7 @@ public interface UserService {
 
 
 
-    User registerUserToBed(Long userId, Long bedId);
+    User registerUserToBed(Long userId, String bedId);
 
     void updateBalance(Long id, Double amount);
 

@@ -55,7 +55,7 @@ public class User implements UserDetails {
 
     private String phone;
 
-    private Long bedId;
+    private String bedId;
 
     private String userPicture;
 

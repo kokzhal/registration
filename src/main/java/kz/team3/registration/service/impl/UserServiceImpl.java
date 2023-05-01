@@ -10,6 +10,7 @@ import kz.team3.registration.repository.UserRepository;
 import kz.team3.registration.service.BedService;
 import kz.team3.registration.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
@@ -85,19 +87,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setProgram(userRequestDto.getProgram());
         user.setCourse(userRequestDto.getCourse());
         user.setRole(userRequestDto.getUserRole());
-        user.setUserGender(userRequestDto.getUserGender());
 
         return user;
     }
 
     @Override
-    public User registerUserToBed(Long userId, Long bedId) {
+    public User registerUserToBed(Long userId, String bedId) {
+        log.info("Registering user, userId: {}, bedId {}", userId, bedId);
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
         Bed bed = bedRepository.findById(bedId)
-                .orElseThrow(() -> new RuntimeException("Bed not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Bed not found with id: " + bedId));
+
+        if (!bed.getStatus().equals("available")) {
+            throw new RuntimeException("Bed is not available for registration");
+        }
+
         user.setBedId(bedId);
-        return userRepository.save(user);
+        userRepository.save(user);
+
+        bed.setStatus("occupied");
+        bedRepository.save(bed);
+
+        log.info("Successfully saved user, userId: {}, bedId {}", userId, bedId);
+
+        return user;
     }
 
     @Override
@@ -132,25 +146,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.save(user);
     }
 
-    public User updateUserBed(Long userId, Long bedId) {
+    public User updateUserBed(Long userId, String bedId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
         Bed bed = bedRepository.findById(bedId)
                 .orElseThrow(() -> new ResourceNotFoundException("Bed not found with id: " + bedId));
 
-        // Get the cost of taking a bed from the BedService
         int cost = bedService.getBedCost();
 
-        // Check if the user has enough balance to pay for the bed
         if (user.getBalance() < cost) {
             throw new RuntimeException("Insufficient balance to take bed");
         }
 
-        // Update the assigned bed of the user
         user.setAssignedBed(bed);
 
-        // Deduct the cost of taking a bed from the user's balance
         user.setBalance(user.getBalance() - cost);
 
         return userRepository.save(user);

@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PutMapping("api/v1/users/{userId}/beds")
-    public ResponseEntity<User> giveBedToUser(@PathVariable Long userId, @RequestParam Long bedId) {
+    public ResponseEntity<User> giveBedToUser(@PathVariable Long userId, @RequestParam String bedId) {
         User updatedUser = userService.registerUserToBed(userId, bedId);
         return ResponseEntity.ok(updatedUser);
     }

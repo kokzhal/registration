@@ -25,7 +25,5 @@ public class UserRequestDto {
     private Integer course;
     @NotEmpty
     private String phone;
-    @NotEmpty
-    private UserGender userGender;
     private UserRole userRole;
 }
