@@ -1,0 +1,61 @@
+.main{
+    background: url('./../../../public/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: calc(100vh - 100px);
+}
+.main__wrapper{
+    position: relative;
+    height: calc(100vh - 100px);
+}
+.main__logo{
+    padding-top: 30px;
+    margin-bottom: 105px;
+}
+.main__title{
+    font-weight: 900;
+    font-size: 65px;
+    color: #F8FBFE;
+    padding-top: 15%;
+}
+.main__time{
+    position: absolute;
+    right: 0;
+    bottom:74px;
+}
+.main__time_title{
+    font-weight: 900;
+    font-size: 45px;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+.main__time_text{
+    font-weight: 900;
+    font-size: 50px;
+    color: #FFFFFF;
+    margin-bottom: 36px;
+}
+.main__time_button{
+    font-weight: 900;
+    font-size: 45px;
+    color: #FFFFFF;
+    padding:18px 150px;
+    background: #93989C;
+    width: fit-content;
+    border-radius: 35px;
+}
+.main__button{
+    font-weight: 900;
+    font-size: 35px;
+    line-height: 41px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #6A1C1C;
+    border-radius: 35px;
+    padding:24px 43px;
+    width: fit-content;
+    position: absolute;
+    right: 0;
+    bottom:123px;
+}
